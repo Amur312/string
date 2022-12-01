@@ -1,19 +1,19 @@
 #include "s21_string.h"
 
 int main() {
-  // Массив источник данных
-  unsigned char src[10] = "1234562";
+  // Исходный массив данных
+   unsigned char src[10]="1234567890";
 
-  // Массив приемник данных
-  unsigned char dst[10] = "";
+   // Вывод массива src на консоль
+   printf ("src old: %s\n",src);
 
-  // Копируем 6 байт из массива src в массив dst
-  s21_memcpy(dst, src, 7);
+   // Копируем 3 байт
+   s21_memmove (&src[1], &src[3], 3);
 
-  // Вывод массива dst на консоль
-  printf("dst: %s\n", dst);
+   // Вывод массива src на консоль
+   printf ("src new: %s\n",src);
 
-  return 0;
+   return 0;;
 }
 
 void *s21_memchr(const void *str, int c, s21_size_t n) {
@@ -52,4 +52,23 @@ void *s21_memcpy(void *dest, const void *src, s21_size_t n) {
     *(arr1++) = (*arr2++);
   }
   return dest;
+}
+
+void *s21_memmove(void *dest, const void *src, s21_size_t n){
+  char * arr1 = (char*) dest;
+  const char  *arr2 = (const char*) src;
+  if(arr1 <= arr2){
+    for(int i = 0; i < n; i++){
+      arr1[i]=arr2[i];
+    }
+  }
+  else{
+      for(int i = n; i > 0; i--){
+      arr1[i-1]=arr2[i-1];
+    }
+  }
+
+
+  return dest;
+
 }
