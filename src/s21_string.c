@@ -1,19 +1,16 @@
 #include "s21_string.h"
 
 int main() {
-  // Исходный массив данных
-   unsigned char src[10]="1234567890";
+  // Исходный массив
+   unsigned char src[15]="1234567890";
+ 
+   // Заполняем массив символом ‘1’
+   memset (src, '_', 10);
 
    // Вывод массива src на консоль
-   printf ("src old: %s\n",src);
+   printf ("src: %s\n",src);
 
-   // Копируем 3 байт
-   s21_memmove (&src[1], &src[3], 3);
-
-   // Вывод массива src на консоль
-   printf ("src new: %s\n",src);
-
-   return 0;;
+   return 0;
 }
 
 void *s21_memchr(const void *str, int c, s21_size_t n) {
@@ -54,21 +51,26 @@ void *s21_memcpy(void *dest, const void *src, s21_size_t n) {
   return dest;
 }
 
-void *s21_memmove(void *dest, const void *src, s21_size_t n){
-  char * arr1 = (char*) dest;
-  const char  *arr2 = (const char*) src;
-  if(arr1 <= arr2){
-    for(int i = 0; i < n; i++){
-      arr1[i]=arr2[i];
+void *s21_memmove(void *dest, const void *src, s21_size_t n) {
+  char *arr1 = (char *)dest;
+  const char *arr2 = (const char *)src;
+  if (arr1 <= arr2) {
+    for (int i = 0; i < n; i++) {
+      arr1[i] = arr2[i];
+    }
+  } else {
+    for (int i = n; i > 0; i--) {
+      arr1[i - 1] = arr2[i - 1];
     }
   }
-  else{
-      for(int i = n; i > 0; i--){
-      arr1[i-1]=arr2[i-1];
-    }
-  }
-
 
   return dest;
+}
 
+void *s21_memset(void *str, int c, size_t n){
+  char * arr1 = (char *)str;
+ for(int i = 0; i < n; i++){
+    arr1[i] = c;
+ }
+  return str;
 }
