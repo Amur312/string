@@ -1,16 +1,17 @@
 #include "s21_string.h"
 
 int main() {
-  // Исходные массивы
-  unsigned char src[15] = "1234567890";
-  unsigned char dst[15] = "1234567890";
+  // Массив источник данных
+  unsigned char src[10] = "1234562";
 
-  // Сравниваем первые 10 байт массивов
-  // и результат выводим на экран
-  if (memcmp(src, dst, 10) == 0)
-    puts("The memory areas are identical");
-  else
-    puts("Memory areas are different");
+  // Массив приемник данных
+  unsigned char dst[10] = "";
+
+  // Копируем 6 байт из массива src в массив dst
+  s21_memcpy(dst, src, 7);
+
+  // Вывод массива dst на консоль
+  printf("dst: %s\n", dst);
 
   return 0;
 }
@@ -40,6 +41,15 @@ int s21_memcmp(const void *str1, const void *str2, s21_size_t n) {
     arr2++;
   }
 
-
   return result;
+}
+
+void *s21_memcpy(void *dest, const void *src, s21_size_t n) {
+  char *arr1 = (char *)dest;
+  const char *arr2 = (const char *)src;
+
+  for (int i = 0; i < n; i++) {
+    *(arr1++) = (*arr2++);
+  }
+  return dest;
 }
