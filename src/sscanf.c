@@ -74,5 +74,49 @@ void i_option(const char *str, int *i, int *argc, int *error) {
     }
     step_ii = step_ii - step_i;
     step_i--;
+    int res = 0;
+    int base = 0;
+    while (str[step_ii] == '\0' && str[step_ii] == ' ') {
+      if (str[step_ii] >= '0' && str[step_ii] <= '9') {
+        base = str[step_ii] - '0';
+        base = base * pow(16, step_i);
+        res = res + base;
+        step_ii++;
+        step_i--;
+      }
+      if (str[step_ii] >= 'A' && str[step_ii] <= 'F') {
+        base = str[step_ii] - 65; // 65 == A
+        base = base + 10;
+        base = base * pow(16, step_i);
+        res = res + base;
+        step_ii++;
+        step_i--;
+      }
+      if (str[step_ii] >= 'a' && str[step_ii] <= 'f') {
+        base = str[step_ii] - 97; // 97 == a
+        base = base + 10;
+        base = base * pow(16, step_i);
+        res = res + base;
+        step_ii++;
+        step_i--;
+      }
+      if (step != 0) {
+        res = -res;
+        *argc = res;
+      } else {
+        if (str[step_ii + 1] >= '0' && str[step_ii + 1] <= '7') {
+          step_ii++;
+          while (str[step_ii] != '\0' && str[step_ii] != ' ') {
+            if (str[step_ii + 1] <= '0' || str[step_ii + 1] >= '7') {
+              break;
+            }
+
+            step_ii++;
+            step_i++;
+          }
+          step_ii = step_ii - step_i;
+          
+        }
+      }
+    }
   }
-}
