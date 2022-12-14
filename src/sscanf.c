@@ -3,11 +3,12 @@
 int main() {
 
  
-  char arr[10] ;
-  s21_sscanf("*10","%p", arr);
-  printf("%p\n", arr);
-  // sscanf("*10", "%p", arr);
-  // printf("%p\n", arr);
+  char arr[] = " Amur" ;
+  float a ;
+  s21_sscanf(arr,"%p", &a);
+  printf("%p\n", a);
+  sscanf(arr, "%p", &a);
+  printf("%p\n", a);
   return 0;
 }
 int s21_sscanf(const char *str, const char *format, ...) {
