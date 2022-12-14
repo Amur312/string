@@ -9,9 +9,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
-#include <math.h>
+
 typedef long unsigned s21_size_t;
 
+struct Option {
+  
+  int width;
+  int accuracy;
+  int length;
+  int success;
+}Arg;
 
 
 
@@ -29,7 +36,7 @@ void *s21_memcpy(void *dest, const void *src, s21_size_t n);
 void *s21_memmove(void *dest, const void *src, s21_size_t n);
 void *s21_memset(void *str, int c, size_t n);
 int s21_sscanf(const char *str, const char *format, ...);
-void i_option(const char *str, int *i, int *p, int *error);
+void p_option(const char *str, int  *i, va_list A);
 
 
 
