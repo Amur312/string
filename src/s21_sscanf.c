@@ -3,12 +3,12 @@
 int main() {
 
  
-  char arr[] = " Amur" ;
-  float a ;
-  s21_sscanf(arr,"%p", &a);
-  printf("%p\n", a);
-  sscanf(arr, "%p", &a);
-  printf("%p\n", a);
+  char arr[20];
+  int a;
+  s21_sscanf(arr,"%n", &a);
+  printf("%n\n", &a);
+  sscanf(arr, "%n", &a);
+  printf("%n\n", &a);
   return 0;
 }
 int s21_sscanf(const char *str, const char *format, ...) {
@@ -34,6 +34,11 @@ int s21_sscanf(const char *str, const char *format, ...) {
         *argc = i;
         count++;
       }
+      if(format[count] == 'g' || format[count] == 'G'){
+        float *argc = va_arg(A, float*);
+        g_option(str,&i,A);
+        count++:
+      }
 
       if (format[count] == ' ')
         count++;
@@ -44,7 +49,7 @@ int s21_sscanf(const char *str, const char *format, ...) {
 }
 
 void p_option(const char *str, int *i, va_list A) {
-  s21_size_t result = 0, count = *i, sign = 0, base = 0,flag =0;
+  int result = 0, count = *i, sign = 0, base = 0, flag =0;
 
   if (str[count] == '-') {
     flag++;
@@ -105,5 +110,23 @@ void p_option(const char *str, int *i, va_list A) {
   void **argc= va_arg(A, void *);
   *argc = (void *)(0x0 + result);
   *i = count;
+  
+}
+
+
+void g_option(const char str, int *i, va_list A){
+    size_t count = *i , step = 1, sign_min = 0 ;
+    float base ;
+    if(str[count] == '-' && str[count +1] >= '0' && str[count + 1] <= '9'){
+      sign++;
+      count++;
+    }
+    if(str[count] == '+' && str[count + 1] >= '0' && str[count +1] <= '9'){
+      count++;
+    }
+    if(str[count] >= '0' && str[count] <= '9'){
+      base = str[count] - '0';
+    }
+
   
 }
