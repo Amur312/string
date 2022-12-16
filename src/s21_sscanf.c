@@ -1,15 +1,12 @@
 #include "s21_string.h"
 #include <math.h>
 int main() {
-
- 
-  char arr[20];
-  int a;
-  s21_sscanf(arr,"%n", &a);
-  printf("%n\n", &a);
-  sscanf(arr, "%n", &a);
-  printf("%n\n", &a);
-  return 0;
+char arr[] = "1.7e3";
+ float a;
+ s21_sscanf(arr,"%g", &a);
+ printf("%f\n", a); 
+ sscanf(arr,"%g", &a);
+ printf("%f\n", a);
 }
 int s21_sscanf(const char *str, const char *format, ...) {
 
@@ -114,19 +111,90 @@ void p_option(const char *str, int *i, va_list A) {
 }
 
 
-void g_option(const char str, int *i, va_list A){
-    size_t count = *i , step = 1, sign_min = 0 ;
-    float base ;
-    if(str[count] == '-' && str[count +1] >= '0' && str[count + 1] <= '9'){
-      sign++;
-      count++;
-    }
-    if(str[count] == '+' && str[count + 1] >= '0' && str[count +1] <= '9'){
-      count++;
-    }
-    if(str[count] >= '0' && str[count] <= '9'){
-      base = str[count] - '0';
-    }
+void g_option(const char str, int *i, va_list A, int *error){
+    s21_size_t count = 0, sign = 0, float_f = 0, num , num_e,count_f = 1;
 
-  
+    while (src[count] == ' ' || src[count] == '\n' || src[count] == '\t' ||
+          src[count] == '%') {
+    count += 1;
+  }
+  if (src[count] == '-' && src[count + 1] >= '0' && src[count + 1] <= '9')
+    {
+      sign = 1;
+      count++;
+    }
+  else if(src[count] == '+' && src[count + 1] >= '0' && src[count + 1] <= '9'){
+    sign = 0;
+    if(src[count] == '+'){
+      count++;
+    }
+  } else{
+    *error = 1;
+  }
+  if(src[count + 1] >= '0' && src[count + 1] <= '9'){
+    float_f = src[count] - '0';
+    while (src[count + 1] >= '0' && src[count + 1] <= '9') {
+      float_f = float_f * 10;
+      num = src[count + 1] - '0';
+      float_f = float_f + num;
+      count++;
+    }
+    if (src[count] == '.') {
+      count+= 2;
+      while (src[count] >= '0' && src[count] <= '9') {
+        num = src[count] - '0';
+        num = num / (pow(10, count_f));
+        float_f = float_f + num;
+        count++;
+        count_f++;
+        
+      }
+      if (src[count] == 'e' || src[count] == 'E')
+      {
+        
+        count++;
+        if (src[count] == '-'){
+          count++;
+          if (str[count] == '0') count++;
+          if(str[count] >= '1' && str[count] <= '9'){
+              num_e = str[count] - '0';
+              count++;
+          }
+          if(str[count] >= '1' && ctr[count] <= '9'){
+              num_e = num_e / 10;
+              num_e = (str[count] - '0') + num_e;
+          }
+          for (int i = 0; i != num_e; i++) {
+            float_f *= 10;
+          }
+        }
+        else if (src[count] == '+')
+        {
+          count++;
+          if (src[count] == '+'){
+          count++;
+          if (str[count] == '0') count++;
+          if(str[count] >= '1' && ctr[count] <= '9'){
+              num_e = str[count] - '0';
+              count++;
+          }
+          if(str[count] >= '1' && ctr[count] <= '9'){
+              num_e = num_e * 10;
+              num_e = (str[count] - '0') + num_e;
+          }
+          for (int i = 0; i != num_e; i++) {
+            float_f /= 10;
+          }
+        }
+        
+        }
+      }
+      if (sign != 0) float_f = -float_f;
+    }   
+  }else {
+    error++;
+  }
+  count++
+  *i = count;
+
 }

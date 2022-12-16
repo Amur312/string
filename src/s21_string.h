@@ -37,6 +37,7 @@ void *s21_memmove(void *dest, const void *src, s21_size_t n);
 void *s21_memset(void *str, int c, size_t n);
 int s21_sscanf(const char *str, const char *format, ...);
 void p_option(const char *str, int  *i, va_list A);
+void g_option(const char str, int *i, va_list A, int *error)
 
 
 
