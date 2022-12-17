@@ -89,12 +89,12 @@ void funkshin_for_int_l(const char *const_Buffer, const char *const_Format, stru
 void funkshin_for_f (const char *const_Buffer, const char *const_Format, struct pars_format *format_i){
 
     double x = 0;
-    double y = 0;
-    double n = 0.1;
+    float y = 0;
+    float n = 0.1;
     int flag_e = 0;
     
     int count_i = format_i->count_pointer_Buffer; //положение указателя
-    double znak = 1;
+    float znak = 1;
     int flag_cifra = 0;
     while (const_Buffer[count_i] == ' '){ // добавить в остальные функции
         count_i ++;
@@ -733,67 +733,67 @@ void funkshin_for_G (const char *const_Buffer, const char *const_Format, struct 
     format_i->znachenie_G = format_i->znachenie_float;
 };
 
-void funkshin_for_p(const char *str, int *i, va_list A) {
-  int result = 0, count = *i, sign = 0, base = 0, flag =0;
+// void funkshin_for_p(const char *str, int *i, va_list A) {
+//   int result = 0, count = *i, sign = 0, base = 0, flag =0;
 
-  if (str[count] == '-') {
-    flag++;
-    count++;
-  }
-  if (str[count] == '+')
-    count++;
-  if (str[count] == '0' && str[count + 1] == 'x') {
-    count++;
-    count++;
-  }
-  while (str[count] != ' ' && str[count] != '\0') {
-    if (str[count + 1] >= '0' || str[count + 1] <= '9') {
-      count++;
-      sign++;
-    } else {
-      if (str[count + 1] >= 'A' && str[count + 1] <= 'F') {
-        count++;
-        sign++;
-      } else {
-        if (str[count + 1] >= 'a' && str[count + 1] <= 'f') {
-          count++;
-          sign++;
-        } else {
-          break;
-        }
-      }
-    }
-  }
-  count = count - sign;
-  sign--;
-  while (str[count] != ' ' && str[count] != '\0') {
-    if (str[count] >= '0' && str[count] <= '9') {
-      base = str[count] - '0';
-      base = base * (pow(16, sign));
-      count++;
-      sign--;
-      result = result + base;
-    }
-    if (str[count] >= 'A' && str[count] <= 'F') {
-      base = str[count] - 65;
-      base = base + 10;
-      base = base * (pow(16, sign));
-      count++;
-      sign--;
-      result = result + base;
-    }
-    if (str[count] >= 'a' && str[count] <= 'f') {
-      base = str[count] - 97;
-      base = base + 10;
-      base = base * (pow(16, sign));
-      count++;
-      sign--;
-      result = result + base;
-    }
-  }
-  if (flag != 0) result = -result; 
-  void **argc= va_arg(A, void *);
-  *argc = (void *)(0x0 + result);
-  *i = count;
+//   if (str[count] == '-') {
+//     flag++;
+//     count++;
+//   }
+//   if (str[count] == '+')
+//     count++;
+//   if (str[count] == '0' && str[count + 1] == 'x') {
+//     count++;
+//     count++;
+//   }
+//   while (str[count] != ' ' && str[count] != '\0') {
+//     if (str[count + 1] >= '0' || str[count + 1] <= '9') {
+//       count++;
+//       sign++;
+//     } else {
+//       if (str[count + 1] >= 'A' && str[count + 1] <= 'F') {
+//         count++;
+//         sign++;
+//       } else {
+//         if (str[count + 1] >= 'a' && str[count + 1] <= 'f') {
+//           count++;
+//           sign++;
+//         } else {
+//           break;
+//         }
+//       }
+//     }
+//   }
+//   count = count - sign;
+//   sign--;
+//   while (str[count] != ' ' && str[count] != '\0') {
+//     if (str[count] >= '0' && str[count] <= '9') {
+//       base = str[count] - '0';
+//       base = base * (pow(16, sign));
+//       count++;
+//       sign--;
+//       result = result + base;
+//     }
+//     if (str[count] >= 'A' && str[count] <= 'F') {
+//       base = str[count] - 65;
+//       base = base + 10;
+//       base = base * (pow(16, sign));
+//       count++;
+//       sign--;
+//       result = result + base;
+//     }
+//     if (str[count] >= 'a' && str[count] <= 'f') {
+//       base = str[count] - 97;
+//       base = base + 10;
+//       base = base * (pow(16, sign));
+//       count++;
+//       sign--;
+//       result = result + base;
+//     }
+//   }
+//   if (flag != 0) result = -result; 
+//   void **argc= va_arg(A, void *);
+//   *argc = (void *)(0x0 + result);
+//   *i = count;
   
-}
+// }
